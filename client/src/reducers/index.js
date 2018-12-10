@@ -6,5 +6,5 @@ import postReducer from './postReducer';
 export default combineReducers({
 	errors: errorReducer,
 	auth: authReducer,
-	post: postReducer
+	posts: postReducer
 });

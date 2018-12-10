@@ -1,43 +1,68 @@
 import React, { Component } from 'react';
-import { getPosts } from '../actions/posts';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchPostsIfNeeded } from '../actions/posts';
 import Post from './post';
 
-export default class Home extends Component {
+class Home extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { posts: [] };
-    this.props.store.dispatch(getPosts())
+		this.handleRefreshClick = this.handleRefreshClick.bind(this);
 	}
 
 	componentDidMount() {
-		this.props.store.subscribe(
-			function() {
-				this.setState(this.props.store.getState());
-			}.bind(this)
-		);
+		const { dispatch } = this.props;
+		dispatch(fetchPostsIfNeeded());
+	}
+
+	handleRefreshClick(e) {
+		e.preventDefault();
+
+		const { dispatch } = this.props;
+		dispatch(fetchPostsIfNeeded());
 	}
 
 	render() {
+		const { items } = this.props;
 		return (
 			<div className="container home">
-				<h1>Your Posts</h1>
+				<div className="home-header">
+					<h1>Your Posts</h1>
+					<a href="/" className="btn btn-primary">
+						Create New +
+					</a>
+				</div>
 				<hr />
 				<div className="row">
-					<div className="col-sm-4">
-						<Post />
-					</div>
-					<div className="col-sm-4">
-						<Post />
-					</div>
-					<div className="col-sm-4">
-						<Post />
-					</div>
+					{items.map((post, index) => (
+						<div className="col-sm-4">
+							<Post post={post} key={index} />
+						</div>
+					))}
 				</div>
 			</div>
 		);
 	}
 }
 
-const initialState = {
-	posts: []
+Home.propTypes = {
+	items: PropTypes.array.isRequired,
+	isFetching: PropTypes.bool.isRequired,
+	dispatch: PropTypes.func.isRequired
 };
+
+function mapStateToProps(state) {
+	console.log(state);
+	const { isFetching, lastUpdated, items } = state.posts || {
+		isFetching: true,
+		lastUpdated: Date.now(),
+		items: []
+	};
+	return {
+		items,
+		isFetching,
+		lastUpdated
+	};
+}
+
+export default connect(mapStateToProps)(Home);

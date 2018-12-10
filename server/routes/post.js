@@ -31,7 +31,7 @@ router.get(
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		const user = req.user.id;
-
+		console.log('u made it');
 		Post.find({
 			owner: user
 		})
@@ -40,9 +40,11 @@ router.get(
 			})
 			.exec((error, posts) => {
 				if (!error) {
-					res.send(posts);
+					console.log(posts);
+					res.json({ posts: posts });
 				} else {
 					res.status(400).json(error);
+					console.log('u goofed');
 				}
 			});
 	}
