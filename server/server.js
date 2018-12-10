@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const jwtstrategy = require('./jwtStrategy');
 const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(passport.initialize());
 jwtstrategy(passport);
 
 app.use('/user', userRoutes);
+app.use('/post', postRoutes);
 
 app.get('/', function(req, res) {
 	res.send('hello world');
