@@ -28,7 +28,7 @@ app.use(passport.initialize());
 jwtstrategy(passport);
 
 app.use('/user', userRoutes);
-app.use('/post', postRoutes);
+app.use('/posts', postRoutes);
 
 app.get('/', function(req, res) {
 	res.send('hello world');

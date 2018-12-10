@@ -12,6 +12,7 @@ import Login from './components/login';
 import Home from './components/home';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './style.css';
 
 if (localStorage.jwtToken) {
 	setToken(localStorage.jwtToken);
@@ -32,7 +33,10 @@ class App extends Component {
 				<Router>
 					<div>
 						<Navbar />
-						<Route exact path="/" component={Home} />
+						<Route path="/" render={() => 
+								<Home store={store} />
+							}
+						/>
 						<div className="container">
 							<Route exact path="/register" component={Register} />
 							<Route exact path="/login" component={Login} />
