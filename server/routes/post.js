@@ -13,6 +13,7 @@ router.post(
 		const owner = req.user.id;
 		const images = req.body.images;
 		const location = req.body.location;
+		const ownerName = req.user.name;
 		console.log(location);
 
 		const newPost = Post({
@@ -20,7 +21,8 @@ router.post(
 			text: text,
 			owner: owner,
 			images: images,
-			location: location
+			location: location,
+			ownerName: ownerName
 		});
 
 		newPost

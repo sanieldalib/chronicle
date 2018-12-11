@@ -1,4 +1,4 @@
-.home {
+.container {
 	padding-top: 20px;
 }
 
@@ -92,7 +92,7 @@
 	padding-right: 5px;
 }
 
-.location {
+.blue {
 	color: #007bff;
 }
 
@@ -137,6 +137,30 @@ input:focus::-webkit-input-placeholder {
 	transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
 }
+
+.date-location {
+	display: flex;
+	flex-direction: row;
+	padding-top: 10px;
+	margin-bottom: -10px;
+}
+
+.date-location i {
+	color: #007bff;
+}
+
+.post-text {
+	white-space: pre-wrap;
+}
+
+.vl {
+	padding-left: 2px;
+	padding-right: 5px;
+}
+
+/* .fa-share {
+	font-weight: 300;
+} */
 
 @media only screen and (max-width: 480px) {
 }

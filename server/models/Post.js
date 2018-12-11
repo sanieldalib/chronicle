@@ -26,6 +26,10 @@ const PostSchema = new Schema({
 	location: {
 		type: Object,
 		default: {}
+	},
+	ownerName: {
+		type: String,
+		required: true
 	}
 });
 

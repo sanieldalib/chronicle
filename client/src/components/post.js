@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
+import { Router, Route } from 'react-router-dom';
+import PostPage from './postPage';
 
 export default class Post extends Component {
 	constructor(props) {
@@ -18,19 +20,20 @@ export default class Post extends Component {
 				''
 			) : (
 				<div className="location">
-					<h6 className="card-subtitle mb-2">
-						<i class="fas fa-map-marker-alt" />
+					<h6 className="card-subtitle mb-2 text-muted">
+						<i className="fas fa-map-marker-alt blue" />
 						{location.written}
 					</h6>
 				</div>
 			);
 		console.log(displayPost);
 		return (
-			<div className="card post-card">
+			<div className="card post-card" onClick={this.props.onClick}>
 				<div className="card-body">
 					<h5 className="card-title">{post.title}</h5>
 					{locationInfo}
 					<h6 className="card-subtitle mb-2 text-muted">
+						<i className="fas fa-clock blue" />
 						<Moment fromNow ago>
 							{post.date}
 						</Moment>

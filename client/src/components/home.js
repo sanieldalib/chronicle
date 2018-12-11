@@ -18,6 +18,8 @@ class Home extends Component {
 		this.state = {
 			modalIsOpen: false
 		};
+		console.log(props);
+		// this.showPostPage = this.showPostPage.bind(this);
 	}
 
 	componentDidMount() {
@@ -40,6 +42,14 @@ class Home extends Component {
 
 	openModal() {
 		this.setState({ modalIsOpen: true });
+	}
+
+	showPostPage(post) {
+		// this.props.history.push(/posts:${post._id});
+		this.props.history.push({
+			pathname: `/posts/${post._id}`,
+			state: { post: post }
+		});
 	}
 
 	renderRedirect = () => {
@@ -68,7 +78,11 @@ class Home extends Component {
 					<div className="row">
 						{items.map((post, index) => (
 							<div className="col-sm-4">
-								<Post post={post} key={index} />
+								<Post
+									post={post}
+									onClick={this.showPostPage.bind(this, post)}
+									key={index}
+								/>
 							</div>
 						))}
 					</div>

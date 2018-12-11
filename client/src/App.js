@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import jwt_decode from 'jwt-decode';
 import setToken from './auth/setToken';
 import { setCurrentUser, logoutUser } from './actions/authentication';
+import history from './history';
 
 import Navbar from './components/navbar';
 import Register from './components/register';
 import Login from './components/login';
 import Home from './components/home';
+import PostPage from './components/postPage';
 // import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { mapmarker } from '@fortawesome/free-solid-svg-icons';
@@ -35,7 +37,7 @@ class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<Router>
+				<Router history={history}>
 					<div>
 						<Navbar />
 						<Route exact path="/" render={props => <Home {...props} />} />
@@ -50,6 +52,7 @@ class App extends Component {
 								path="/login"
 								render={props => <Login {...props} />}
 							/>
+							<Route path="/posts/" render={props => <PostPage {...props} />} />
 						</div>
 					</div>
 				</Router>
