@@ -28,7 +28,9 @@
 	width: 32px;
 	height: 32px;
 	opacity: 0.3;
+	z-index: 5;
 }
+
 .close:hover {
 	opacity: 1;
 }
@@ -75,8 +77,9 @@
 }
 
 .newpost {
-	max-height: 90vh;
+	max-height: 80vh;
 	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .newpost-title {
@@ -119,12 +122,13 @@
 }
 
 .sharepost-shared {
-	margin-bottom: 30px;
+	margin-bottom: 100px;
 	width: 80%;
 }
 
 .newpost-btn {
 	width: 100%;
+	height: 50px;
 	margin: 0 auto;
 }
 
@@ -233,19 +237,24 @@ input:focus::-webkit-input-placeholder {
 	position: absolute;
 	width: 95%;
 	margin: 0 auto;
-	bottom: 10px;
+	left: 2.5%;
+	bottom: 30px;
 }
 
 .fileContainer {
 	box-shadow: none;
 }
 
+.ReactModal__Content {
+	overflow-x: hidden !important;
+	overflow-y: scroll !important;
+}
+
 @media only screen and (max-width: 480px) {
 	.ReactModal__Content {
 		position: relative !important;
-		top: 0px !important;
-		height: 100vh;
-		bottom: 0px !important;
+		height: auto;
+		width: 90%;
 		right: 0px !important;
 		left: 0px !important;
 	}
@@ -265,7 +274,7 @@ input:focus::-webkit-input-placeholder {
 	}
 
 	.title {
-		margin-right: 10px;
+		margin-right: 60px;
 	}
 
 	.share {

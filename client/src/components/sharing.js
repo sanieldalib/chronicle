@@ -22,7 +22,10 @@ class Sharing extends Component {
 		const { dispatch } = this.props;
 		const { _id } = this.props.post;
 		const email = this.state.email;
-		dispatch(sharePost(email, _id));
+
+		if (email !== '') {
+			dispatch(sharePost(email, _id));
+		}
 	}
 
 	render() {

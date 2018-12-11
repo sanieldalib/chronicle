@@ -28,7 +28,7 @@ class Navbar extends Component {
 						{`Welcome, ${user.name}`}
 					</a>
 					<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a href="#" className="nav-link" onClick={this.onLogout.bind(this)}>
+						<a className="nav-link" onClick={this.onLogout.bind(this)}>
 							Logout
 						</a>
 					</div>

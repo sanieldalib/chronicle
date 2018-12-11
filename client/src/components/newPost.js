@@ -34,7 +34,7 @@ class NewPost extends Component {
 			title: this.state.title,
 			text: this.state.text,
 			date: Date.now(),
-			location: this.props.location
+			location: this.props.locSuccess ? this.props.location : {}
 		};
 		const { dispatch } = this.props;
 		const { pictures } = this.state;

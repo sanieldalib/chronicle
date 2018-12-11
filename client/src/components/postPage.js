@@ -5,7 +5,6 @@ import Sharing from './sharing';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import GallerySwiper from 'react-gallery-swiper';
 
 Modal.setAppElement('#root');
 
@@ -70,7 +69,7 @@ class PostPage extends Component {
 		});
 
 		const locationInfo =
-			post.location === {} ? (
+			post.location == null ? (
 				''
 			) : (
 				<div className="location">

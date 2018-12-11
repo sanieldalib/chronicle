@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
-import { Router, Route } from 'react-router-dom';
-import PostPage from './postPage';
 
 export default class Post extends Component {
 	constructor(props) {
@@ -16,7 +14,7 @@ export default class Post extends Component {
 		const displayPost =
 			post.text.length > 140 ? post.text.substring(0, 140) + '...' : post.text;
 		const locationInfo =
-			location === {} ? (
+			location == null ? (
 				''
 			) : (
 				<div className="location">
