@@ -11,8 +11,8 @@ export default class Post extends Component {
 
 	render() {
 		const { post } = this.props;
+		const { shared } = this.props;
 		const { location } = post;
-		console.log(location);
 		const displayPost =
 			post.text.length > 140 ? post.text.substring(0, 140) + '...' : post.text;
 		const locationInfo =
@@ -26,7 +26,14 @@ export default class Post extends Component {
 					</h6>
 				</div>
 			);
-		console.log(displayPost);
+		const authorInfo = shared ? (
+			<h6 className="card-subtitle mb-2 text-muted">
+				<i class="fas fa-user blue" />
+				{post.ownerName}
+			</h6>
+		) : (
+			''
+		);
 		return (
 			<div className="card post-card" onClick={this.props.onClick}>
 				<div className="card-body">
@@ -39,6 +46,7 @@ export default class Post extends Component {
 						</Moment>
 						{' ago'}
 					</h6>
+					{authorInfo}
 					<p className="card-text">{displayPost}</p>
 				</div>
 			</div>

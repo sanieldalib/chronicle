@@ -58,6 +58,7 @@ router.post(
 
 			if (post.shared.includes(email)) {
 				res.status(400).json('Already shared with this person');
+				return;
 			}
 
 			post.shared.push(email);
@@ -93,6 +94,29 @@ router.get(
 				} else {
 					res.status(400).json(error);
 					console.log('u goofed');
+				}
+			});
+	}
+);
+
+router.get(
+	'/shared',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		const user = req.user.email;
+		console.log('u made it');
+		Post.find({
+			shared: user
+		})
+			.sort({
+				date: -1
+			})
+			.exec((error, posts) => {
+				if (!error) {
+					console.log(posts);
+					res.json({ posts: posts });
+				} else {
+					res.status(400).json(error);
 				}
 			});
 	}

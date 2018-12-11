@@ -57,14 +57,15 @@ class Sharing extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log(nextProps);
 		if (nextProps.shareSuccess) {
-			console.log('success');
-			console.log(nextProps.shared);
 			this.setState({
 				shared: nextProps.shared
 			});
-			this.props.close();
+
+			this.props.update(nextProps.shared);
+			setTimeout(() => {
+				this.props.close();
+			}, 500);
 		}
 	}
 }

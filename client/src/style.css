@@ -71,6 +71,9 @@
 .newpost-text {
 	font-size: 18px;
 	font-weight: 400;
+	max-height: 70vh;
+	overflow-y: scroll;
+	width: 95%;
 }
 
 .newpost-title {

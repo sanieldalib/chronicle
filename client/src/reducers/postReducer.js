@@ -10,7 +10,10 @@ import {
 	LOCATION_FAILED,
 	SHARE_STARTED,
 	SHARE_FAILED,
-	SHARE_FINISHED
+	SHARE_FINISHED,
+	GET_SHARED_STARTED,
+	GET_SHARED_FINISHED,
+	GET_SHARED_FAILED
 } from '../actions/types';
 import _ from 'lodash';
 
@@ -27,6 +30,9 @@ export default function posts(
 		isSharing: false,
 		shareSuccess: false,
 		shared: [],
+		isFetchingShared: false,
+		fetchSharedSuccess: false,
+		sharedPosts: [],
 		items: []
 	},
 	action
@@ -100,6 +106,22 @@ export default function posts(
 				isSharing: false,
 				shareSuccess: true,
 				shared: action.shared
+			});
+		case GET_SHARED_STARTED:
+			return _.assign({}, state, {
+				isFetchingShared: true,
+				fetchSharedSuccess: false
+			});
+		case GET_SHARED_FINISHED:
+			return _.assign({}, state, {
+				isFetchingShared: false,
+				fetchSharedSuccess: true,
+				sharedPosts: action.sharedPosts
+			});
+		case GET_SHARED_FAILED:
+			return _.assign({}, state, {
+				isFetchingShared: false,
+				fetchSharedSuccess: false
 			});
 		default:
 			return state;

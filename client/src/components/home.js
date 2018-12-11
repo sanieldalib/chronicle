@@ -12,11 +12,13 @@ Modal.setAppElement('#root');
 const customStyles = {
 	content: {
 		maxWidth: `720px`,
+		maxHeigh: '80vh',
 		margin: '0 auto',
 		top: '40px',
 		bottom: 'auto',
 		right: '40px',
-		left: '40px'
+		left: '40px',
+		overflowY: 'scroll'
 	}
 };
 

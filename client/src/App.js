@@ -12,6 +12,7 @@ import Register from './components/register';
 import Login from './components/login';
 import Home from './components/home';
 import PostPage from './components/postPage';
+import Shared from './components/shared';
 // import { library } from '@fortawesome/fontawesome-svg-core';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { mapmarker } from '@fortawesome/free-solid-svg-icons';
@@ -51,6 +52,12 @@ class App extends Component {
 								exact
 								path="/login"
 								render={props => <Login {...props} />}
+							/>
+
+							<Route
+								exact
+								path="/shared"
+								render={props => <Shared {...props} />}
 							/>
 							<Route path="/posts/" render={props => <PostPage {...props} />} />
 						</div>

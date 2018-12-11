@@ -22,7 +22,6 @@ const customStyles = {
 class PostPage extends Component {
 	constructor(props) {
 		super(props);
-		console.log('yoooo');
 		console.log(this.props);
 		this.closeModal = this.closeModal.bind(this);
 		this.openModal = this.openModal.bind(this);
@@ -40,6 +39,12 @@ class PostPage extends Component {
 		this.setState({ modalIsOpen: true });
 	}
 
+	updateShared = shared => {
+		const post = this.state.post;
+		post.shared = shared;
+		this.setState({ post: post });
+	};
+
 	renderRedirect = () => {
 		if (!this.props.isAuthenticated) {
 			return <Redirect to="/login" />;
@@ -48,7 +53,16 @@ class PostPage extends Component {
 		const { shared } = this.state.post;
 		const { owner } = this.state.post;
 
-		if (owner != this.props.user.id) {
+		console.log(owner);
+		console.log(this.props.user.email);
+		console.log(shared);
+
+		console.log(shared.includes(`${this.props.user.email}`));
+
+		if (
+			owner != this.props.user.id &&
+			!shared.includes(this.props.user.email)
+		) {
 			return <Redirect to="/" />;
 		}
 	};
@@ -73,7 +87,11 @@ class PostPage extends Component {
 			post.owner === this.props.user.id ? (
 				<Modal isOpen={this.state.modalIsOpen} style={customStyles}>
 					<a onClick={this.closeModal} className="close" />
-					<Sharing close={this.closeModal} post={post} />
+					<Sharing
+						close={this.closeModal}
+						update={this.updateShared}
+						post={post}
+					/>
 				</Modal>
 			) : (
 				''

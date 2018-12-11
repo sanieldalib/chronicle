@@ -11,8 +11,42 @@ import {
 	GOT_LOCATION,
 	SHARE_STARTED,
 	SHARE_FINISHED,
-	SHARE_FAILED
+	SHARE_FAILED,
+	GET_SHARED_STARTED,
+	GET_SHARED_FAILED,
+	GET_SHARED_FINISHED
 } from './types';
+
+const requestShared = () => {
+	return {
+		type: GET_SHARED_STARTED
+	};
+};
+
+export const fetchShared = () => {
+	return dispatch => {
+		dispatch(requestShared());
+
+		return axios
+			.get('/posts/shared')
+			.then(res => {
+				const { posts } = res.data;
+				dispatch(receiveShared(posts));
+			})
+			.catch(err => {
+				dispatch({
+					type: GET_SHARED_FAILED
+				});
+			});
+	};
+};
+
+const receiveShared = posts => {
+	return {
+		type: GET_SHARED_FINISHED,
+		sharedPosts: posts
+	};
+};
 
 const requestPosts = () => {
 	return {
@@ -166,7 +200,6 @@ export const getLocation = () => {
 
 export const fetchPostsIfNeeded = () => {
 	return (dispatch, getState) => {
-		console.log(getState());
 		if (shouldFetchPosts(getState())) {
 			return dispatch(fetchPosts());
 		}
