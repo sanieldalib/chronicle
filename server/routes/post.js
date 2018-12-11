@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const cloudinary = require('cloudinary');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const Post = require('../models/Post');
@@ -11,8 +12,8 @@ router.post(
 		const title = req.body.title;
 		const text = req.body.text;
 		const owner = req.user.id;
-		const images = req.body.images;
 		const location = req.body.location;
+		const images = req.body.images;
 		const ownerName = req.user.name;
 
 		const newPost = Post({
@@ -29,11 +30,29 @@ router.post(
 			.save()
 			.then(post => {
 				res.send(post);
-				console.log('got it bb');
 			})
 			.catch(err => {
 				res.status(400);
 			});
+	}
+);
+
+router.post(
+	'/images',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		const values = Object.values(req.files);
+		const images = [];
+
+		const promises = values.map(image =>
+			cloudinary.uploader.upload(image.path)
+		);
+		Promise.all(promises).then(results => {
+			results.map((result, index) => {
+				images.push(result.secure_url);
+			});
+			res.json({ images: images });
+		});
 	}
 );
 

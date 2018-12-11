@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const cloudinary = require('cloudinary');
+const formData = require('express-form-data');
 const jwtstrategy = require('./jwtStrategy');
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
@@ -22,8 +24,15 @@ mongoose
 		}
 	);
 
+cloudinary.config({
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.CLOUD_API_KEY,
+	api_secret: process.env.CLOUD_SECRET
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(formData.parse());
 app.use(passport.initialize());
 jwtstrategy(passport);
 

@@ -1,2 +1,5 @@
 export MONGODB_URI='mongodb://localhost:27017/auth'
 export SECRET='SuperSecretSecretYo'
+export CLOUD_NAME='dqiipyzrb'
+export CLOUD_API_KEY='669674519334436'
+export CLOUD_SECRET='wL0Y5PEaxuWcaeYtBBJwMH9QXro'
