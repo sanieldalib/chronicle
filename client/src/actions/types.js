@@ -10,3 +10,6 @@ export const RESET_NEW_POST = 'RESET_NEW_POST';
 export const GET_LOCATION = 'GET_LOCATION';
 export const LOCATION_FAILED = 'LOCATION_FAILED';
 export const GOT_LOCATION = 'GOT_LOCATION';
+export const SHARE_STARTED = 'SHARE_STARTED';
+export const SHARE_FINISHED = 'SHARE_FINISHED';
+export const SHARE_FAILED = 'SHARE_FAILED';

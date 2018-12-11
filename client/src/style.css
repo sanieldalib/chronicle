@@ -78,6 +78,45 @@
 	font-weight: 600;
 }
 
+.sharepost-email {
+	padding-left: 5px;
+	font-size: 18px;
+	font-weight: 400;
+	background-color: #f9f9f9;
+	border-radius: 4px;
+	border: none;
+	color: #000;
+	font-family: 'Lato';
+	box-sizing: border-box;
+	position: relative;
+	width: 80%;
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.sharepost-header {
+	margin-bottom: 30px;
+}
+
+.sharepost-shared-item {
+	display: inline-block;
+	color: #000;
+	background-color: #f9f9f9;
+	border-radius: 6px;
+	font-size: 14px;
+	height: 22px;
+	text-align: center;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.sharepost-shared {
+	margin-bottom: 30px;
+	width: 80%;
+}
+
 .newpost-btn {
 	width: 100%;
 	margin: 0 auto;
@@ -154,8 +193,18 @@ input:focus::-webkit-input-placeholder {
 }
 
 .vl {
-	padding-left: 2px;
+	padding-left: 4px;
 	padding-right: 5px;
+}
+
+.share-button {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.share {
+	margin-right: 20px;
 }
 
 /* .fa-share {
@@ -163,6 +212,52 @@ input:focus::-webkit-input-placeholder {
 } */
 
 @media only screen and (max-width: 480px) {
+	.ReactModal__Content {
+		position: relative !important;
+		top: 0px !important;
+		height: 100vh;
+		bottom: 0px !important;
+		right: 0px !important;
+		left: 0px !important;
+	}
+
+	.newpost-bottom {
+		position: absolute;
+		width: 90%;
+		margin: 0 auto;
+		bottom: 10px;
+	}
+
+	.home-header .btn {
+		position: absolute;
+		right: 0px;
+		top: 8px;
+	}
+
+	.date-location {
+		flex-direction: column;
+	}
+
+	.date-location .vl {
+		display: none;
+	}
+
+	.title {
+		margin-right: 10px;
+	}
+
+	.share {
+		position: absolute;
+		top: 10px;
+	}
+
+	.share-button {
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		height: 0px;
+		position: relative;
+	}
 }
 
 /* .input:focus + .underline {

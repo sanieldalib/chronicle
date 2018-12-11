@@ -8,7 +8,10 @@ import {
 	RESET_NEW_POST,
 	GET_LOCATION,
 	LOCATION_FAILED,
-	GOT_LOCATION
+	GOT_LOCATION,
+	SHARE_STARTED,
+	SHARE_FINISHED,
+	SHARE_FAILED
 } from './types';
 
 const requestPosts = () => {
@@ -45,7 +48,6 @@ const fetchPosts = () => {
 
 const shouldFetchPosts = state => {
 	if (!state.posts) {
-		console.log('yo');
 		return true;
 	} else if (state.isFetching) {
 		return false;
@@ -82,6 +84,35 @@ export const writePost = post => {
 					payload: err
 				});
 				console.log(err);
+			});
+	};
+};
+
+const startSharing = () => {
+	return {
+		type: SHARE_STARTED
+	};
+};
+
+const finishSharing = () => {
+	return {
+		type: SHARE_FINISHED
+	};
+};
+
+export const sharePost = (email, id) => {
+	return dispatch => {
+		dispatch(startSharing());
+
+		return axios
+			.post('/posts/share', { email: email, id: id })
+			.then(res => {
+				dispatch(finishSharing());
+			})
+			.catch(err => {
+				dispatch({
+					type: SHARE_FAILED
+				});
 			});
 	};
 };

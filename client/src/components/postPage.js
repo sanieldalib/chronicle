@@ -1,9 +1,37 @@
 import React, { Component } from 'react';
 import Moment from 'react-moment';
+import Modal from 'react-modal';
+import Sharing from './sharing';
+
+Modal.setAppElement('#root');
+
+const customStyles = {
+	content: {
+		maxWidth: `720px`,
+		margin: '0 auto',
+		top: '33%',
+		bottom: 'auto',
+		right: '40px',
+		left: '40px'
+	}
+};
 
 export default class PostPage extends Component {
 	constructor(props) {
 		super(props);
+		this.closeModal = this.closeModal.bind(this);
+		this.openModal = this.openModal.bind(this);
+		this.state = {
+			modalIsOpen: false
+		};
+	}
+
+	closeModal() {
+		this.setState({ modalIsOpen: false });
+	}
+
+	openModal() {
+		this.setState({ modalIsOpen: true });
 	}
 
 	render() {
@@ -20,12 +48,25 @@ export default class PostPage extends Component {
 				</div>
 			);
 		return (
-			<div className="container">
-				<div className="home-header">
-					<h1>{post.title}</h1>
-					<button onClick={this.openModal} className="btn btn-primary">
-						Share <i className="fas fa-share" />
-					</button>
+			<div>
+				<Modal isOpen={this.state.modalIsOpen} style={customStyles}>
+					<a onClick={this.closeModal} className="close" />
+					<Sharing close={this.closeModal} post={post} />
+				</Modal>
+				<div>
+					<div className="row">
+						<div className="col-sm-8">
+							<h1 className="title">{post.title}</h1>
+						</div>
+						<div className="col-sm-4 share-button">
+							<button
+								onClick={this.openModal}
+								className="btn btn-primary share"
+							>
+								Share <i className="fas fa-share" />
+							</button>
+						</div>
+					</div>
 				</div>
 				<div className="date-location">
 					{locationInfo}

@@ -7,7 +7,10 @@ import {
 	RESET_NEW_POST,
 	GET_LOCATION,
 	GOT_LOCATION,
-	LOCATION_FAILED
+	LOCATION_FAILED,
+	SHARE_STARTED,
+	SHARE_FAILED,
+	SHARE_FINISHED
 } from '../actions/types';
 import _ from 'lodash';
 
@@ -21,6 +24,8 @@ export default function posts(
 		isGettingLocation: false,
 		locSuccess: false,
 		location: {},
+		isSharing: false,
+		shareSuccess: false,
 		items: []
 	},
 	action
@@ -77,6 +82,21 @@ export default function posts(
 			return _.assign({}, state, {
 				isGettingLocation: false,
 				locSuccess: false
+			});
+		case SHARE_STARTED:
+			return _.assign({}, state, {
+				isSharing: true,
+				shareSuccess: false
+			});
+		case SHARE_FAILED:
+			return _.assign({}, state, {
+				isSharing: false,
+				shareSuccess: false
+			});
+		case SHARE_FINISHED:
+			return _.assign({}, state, {
+				isSharing: false,
+				shareSuccess: true
 			});
 		default:
 			return state;

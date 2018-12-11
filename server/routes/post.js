@@ -14,7 +14,6 @@ router.post(
 		const images = req.body.images;
 		const location = req.body.location;
 		const ownerName = req.user.name;
-		console.log(location);
 
 		const newPost = Post({
 			title: title,
@@ -22,7 +21,8 @@ router.post(
 			owner: owner,
 			images: images,
 			location: location,
-			ownerName: ownerName
+			ownerName: ownerName,
+			shared: []
 		});
 
 		newPost
@@ -34,6 +34,39 @@ router.post(
 			.catch(err => {
 				res.status(400);
 			});
+	}
+);
+
+router.post(
+	'/share',
+	passport.authenticate('jwt', { session: false }),
+	(req, res) => {
+		const id = req.body.id;
+		const email = req.body.email;
+		const user = req.user.id;
+
+		Post.findOne({ _id: id }, (err, post) => {
+			if (err) {
+				res.status(400).json(err);
+				return;
+			}
+
+			if (user !== post.owner) {
+				res.status(400).json('You are not authorized');
+				return;
+			}
+
+			post.shared.push(email);
+
+			post
+				.save()
+				.then(post => {
+					res.send(post);
+				})
+				.catch(err => {
+					res.status(400);
+				});
+		});
 	}
 );
 

@@ -9,6 +9,17 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
+const customStyles = {
+	content: {
+		maxWidth: `720px`,
+		margin: '0 auto',
+		top: '40px',
+		bottom: 'auto',
+		right: '40px',
+		left: '40px'
+	}
+};
+
 class Home extends Component {
 	constructor(props) {
 		super(props);
@@ -46,9 +57,10 @@ class Home extends Component {
 
 	showPostPage(post) {
 		// this.props.history.push(/posts:${post._id});
+		console.log(this.props);
 		this.props.history.push({
 			pathname: `/posts/${post._id}`,
-			state: { post: post }
+			state: { post: post, dispatch: this.props.dispatch }
 		});
 	}
 
@@ -64,7 +76,7 @@ class Home extends Component {
 			<div>
 				{this.renderRedirect()}
 				<div className="container home">
-					<Modal isOpen={this.state.modalIsOpen}>
+					<Modal isOpen={this.state.modalIsOpen} style={customStyles}>
 						<a onClick={this.closeModal} className="close" />
 						<NewPost close={this.closeModal} />
 					</Modal>

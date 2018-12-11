@@ -30,7 +30,12 @@ const PostSchema = new Schema({
 	ownerName: {
 		type: String,
 		required: true
-	}
+	},
+	shared: [
+		{
+			type: String
+		}
+	]
 });
 
 const Post = mongoose.model('post', PostSchema);
