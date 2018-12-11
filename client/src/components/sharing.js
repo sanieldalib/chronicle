@@ -6,9 +6,7 @@ import { connect } from 'react-redux';
 class Sharing extends Component {
 	constructor(props) {
 		super(props);
-		console.log(this.props);
 		this.state = { email: '', shared: this.props.post.shared };
-		console.log(this.state);
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}

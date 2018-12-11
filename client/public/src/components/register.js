@@ -27,7 +27,6 @@ export default class Register extends Component {
 			password: this.state.password,
 			confirm: this.state.confirm
 		};
-		console.log(user);
 	}
 
 	render() {

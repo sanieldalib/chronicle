@@ -31,8 +31,6 @@ class Home extends Component {
 		this.state = {
 			modalIsOpen: false
 		};
-		console.log(props);
-		// this.showPostPage = this.showPostPage.bind(this);
 	}
 
 	componentDidMount() {
@@ -58,8 +56,6 @@ class Home extends Component {
 	}
 
 	showPostPage(post) {
-		// this.props.history.push(/posts:${post._id});
-		console.log(this.props);
 		this.props.history.push({
 			pathname: `/posts/${post._id}`,
 			state: { post: post }
@@ -114,7 +110,6 @@ Home.propTypes = {
 };
 
 function mapStateToProps(state) {
-	console.log(state);
 	const { isFetching, lastUpdated, items } = state.posts || {
 		isFetching: true,
 		lastUpdated: Date.now(),

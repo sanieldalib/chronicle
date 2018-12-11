@@ -239,9 +239,6 @@ input:focus::-webkit-input-placeholder {
 .fileContainer {
 	box-shadow: none;
 }
-/* .fa-share {
-	font-weight: 300;
-} */
 
 @media only screen and (max-width: 480px) {
 	.ReactModal__Content {
@@ -284,22 +281,3 @@ input:focus::-webkit-input-placeholder {
 		position: relative;
 	}
 }
-
-/* .input:focus + .underline {
-	transform: scale(1);
-}
-
-.underline {
-	background-color: dodgerblue;
-	display: inline-block;
-	height: 2px;
-	left: 50px;
-	margin-top: -4px;
-	position: absolute;
-	top: 185px;
-	-webkit-transform: scale(0, 1);
-	transform: scale(0, 1);
-	-webkit-transition: all 0.5s linear;
-	transition: all 0.5s linear;
-	width: 202px;
-} */

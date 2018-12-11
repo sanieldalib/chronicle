@@ -43,7 +43,6 @@ export default function posts(
 				isFetching: true
 			});
 		case RECEIVE_USER_POSTS:
-			console.log(action.items);
 			return _.assign({}, state, {
 				isFetching: false,
 				items: action.items,
@@ -101,7 +100,6 @@ export default function posts(
 				shareSuccess: false
 			});
 		case SHARE_FINISHED:
-			console.log(action.shared);
 			return _.assign({}, state, {
 				isSharing: false,
 				shareSuccess: true,

@@ -12,8 +12,6 @@ class Shared extends Component {
 		this.state = {
 			modalIsOpen: false
 		};
-		console.log(props);
-		// this.showPostPage = this.showPostPage.bind(this);
 	}
 
 	componentDidMount() {
@@ -29,7 +27,6 @@ class Shared extends Component {
 	}
 
 	showPostPage(post) {
-		console.log(this.props);
 		this.props.history.push({
 			pathname: `/posts/${post._id}`,
 			state: { post: post }
@@ -79,7 +76,6 @@ Shared.propTypes = {
 };
 
 function mapStateToProps(state) {
-	console.log(state);
 	const { isFetchingShared, sharedPosts, fetchSharedSuccess } = state.posts;
 	const { isAuthenticated } = state.auth;
 	return {

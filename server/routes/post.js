@@ -99,7 +99,6 @@ router.get(
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		const user = req.user.id;
-		console.log('u made it');
 		Post.find({
 			owner: user
 		})
@@ -108,11 +107,9 @@ router.get(
 			})
 			.exec((error, posts) => {
 				if (!error) {
-					console.log(posts);
 					res.json({ posts: posts });
 				} else {
 					res.status(400).json(error);
-					console.log('u goofed');
 				}
 			});
 	}
@@ -123,7 +120,6 @@ router.get(
 	passport.authenticate('jwt', { session: false }),
 	(req, res) => {
 		const user = req.user.email;
-		console.log('u made it');
 		Post.find({
 			shared: user
 		})
@@ -132,7 +128,6 @@ router.get(
 			})
 			.exec((error, posts) => {
 				if (!error) {
-					console.log(posts);
 					res.json({ posts: posts });
 				} else {
 					res.status(400).json(error);

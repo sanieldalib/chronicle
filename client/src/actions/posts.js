@@ -55,7 +55,6 @@ const requestPosts = () => {
 };
 
 const receivePosts = posts => {
-	console.log(posts);
 	return {
 		type: RECEIVE_USER_POSTS,
 		items: posts,
@@ -71,12 +70,9 @@ const fetchPosts = () => {
 			.get('/posts')
 			.then(res => {
 				const { posts } = res.data;
-				console.log(posts);
 				dispatch(receivePosts(posts));
 			})
-			.catch(err => {
-				console.log('error');
-			});
+			.catch(err => {});
 	};
 };
 
@@ -112,8 +108,6 @@ export const writePost = (post, files) => {
 			formData.append(index, picture);
 		});
 
-		console.log(formData);
-
 		return axios
 			.post('/posts/images', formData)
 			.then(res => {
@@ -128,7 +122,6 @@ export const writePost = (post, files) => {
 					type: ERROR_WRITING_POST,
 					payload: err
 				});
-				console.log(err);
 			});
 	};
 };
@@ -147,18 +140,15 @@ const finishSharing = shared => {
 };
 
 export const sharePost = (email, id) => {
-	console.log('u here');
 	return dispatch => {
 		dispatch(startSharing());
 
 		return axios
 			.post('/posts/share', { email: email, id: id })
 			.then(res => {
-				console.log(res.data.shared);
 				dispatch(finishSharing(res.data.shared));
 			})
 			.catch(err => {
-				console.log('error');
 				dispatch({
 					type: SHARE_FAILED
 				});
@@ -176,8 +166,6 @@ export const getLocation = () => {
 	return dispatch => {
 		const geolocation = navigator.geolocation;
 		geolocation.getCurrentPosition(position => {
-			console.log(position.coords);
-
 			if (!position) {
 				dispatch({
 					type: LOCATION_FAILED
@@ -194,7 +182,6 @@ export const getLocation = () => {
 						config
 					)
 					.then(res => {
-						console.log(res);
 						const { adminArea5, adminArea3 } = res.data.results[0].locations[0];
 						const location = adminArea5 + ', ' + adminArea3;
 						dispatch({

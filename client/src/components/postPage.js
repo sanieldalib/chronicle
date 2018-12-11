@@ -23,7 +23,6 @@ const customStyles = {
 class PostPage extends Component {
 	constructor(props) {
 		super(props);
-		console.log(this.props);
 		this.closeModal = this.closeModal.bind(this);
 		this.openModal = this.openModal.bind(this);
 		this.state = {
@@ -54,12 +53,6 @@ class PostPage extends Component {
 		const { shared } = this.state.post;
 		const { owner } = this.state.post;
 
-		console.log(owner);
-		console.log(this.props.user.email);
-		console.log(shared);
-
-		console.log(shared.includes(`${this.props.user.email}`));
-
 		if (
 			owner != this.props.user.id &&
 			!shared.includes(this.props.user.email)
@@ -70,8 +63,6 @@ class PostPage extends Component {
 
 	render() {
 		const { post } = this.state;
-		console.log(post.owner);
-		console.log(this.props.user);
 
 		const images = [];
 		post.images.map((img, i) => {
