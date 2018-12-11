@@ -33,7 +33,8 @@ class NewPost extends Component {
 		const newPost = {
 			title: this.state.title,
 			text: this.state.text,
-			date: Date.now()
+			date: Date.now(),
+			location: this.props.location
 		};
 		const { dispatch } = this.props;
 		dispatch(writePost(newPost));

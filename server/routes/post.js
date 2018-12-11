@@ -12,12 +12,15 @@ router.post(
 		const text = req.body.text;
 		const owner = req.user.id;
 		const images = req.body.images;
+		const location = req.body.location;
+		console.log(location);
 
 		const newPost = Post({
 			title: title,
 			text: text,
 			owner: owner,
-			images: images
+			images: images,
+			location: location
 		});
 
 		newPost
