@@ -71,9 +71,12 @@
 .newpost-text {
 	font-size: 18px;
 	font-weight: 400;
-	max-height: 70vh;
-	overflow-y: scroll;
 	width: 95%;
+}
+
+.newpost {
+	max-height: 90vh;
+	overflow-y: scroll;
 }
 
 .newpost-title {
@@ -128,6 +131,7 @@
 .newpost-bottom {
 	width: 100%;
 	margin: 0 auto;
+	position: fixed;
 }
 
 .fas {
@@ -210,6 +214,31 @@ input:focus::-webkit-input-placeholder {
 	margin-right: 20px;
 }
 
+.carousel {
+	width: 50%;
+	height: auto;
+	margin: 0 auto;
+	margin-bottom: 20px;
+}
+
+.login-card {
+	padding: 20px;
+	margin: 0 auto;
+	max-width: 400px;
+	box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+	top: 50%;
+}
+
+.newpost-bottom {
+	position: absolute;
+	width: 95%;
+	margin: 0 auto;
+	bottom: 10px;
+}
+
+.fileContainer {
+	box-shadow: none;
+}
 /* .fa-share {
 	font-weight: 300;
 } */
@@ -222,13 +251,6 @@ input:focus::-webkit-input-placeholder {
 		bottom: 0px !important;
 		right: 0px !important;
 		left: 0px !important;
-	}
-
-	.newpost-bottom {
-		position: absolute;
-		width: 90%;
-		margin: 0 auto;
-		bottom: 10px;
 	}
 
 	.home-header .btn {

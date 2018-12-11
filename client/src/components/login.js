@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions/authentication';
 import classnames from 'classnames';
@@ -52,44 +53,52 @@ class Login extends Component {
 		const { errors } = this.state;
 		return (
 			<div className="container">
-				<h2>Login</h2>
-				<form onSubmit={this.handleSubmit}>
-					<div className="form-group">
-						<input
-							type="email"
-							placeholder="Email"
-							className={classnames('form-control form-control-lg', {
-								'is-invalid': errors.email
-							})}
-							name="email"
-							onChange={this.handleInputChange}
-							value={this.state.email}
-						/>
-						{errors.email && (
-							<div className="invalid-feedback">{errors.email}</div>
-						)}
-					</div>
-					<div className="form-group">
-						<input
-							type="password"
-							placeholder="Password"
-							className={classnames('form-control form-control-lg', {
-								'is-invalid': errors.password
-							})}
-							name="password"
-							onChange={this.handleInputChange}
-							value={this.state.password}
-						/>
-						{errors.password && (
-							<div className="invalid-feedback">{errors.password}</div>
-						)}
-					</div>
-					<div className="form-group">
-						<button type="submit" className="btn btn-primary">
-							Login User
-						</button>
-					</div>
-				</form>
+				<div className="login-card">
+					<h2>Login</h2>
+					<hr />
+					<p>
+						Welcome to Chronicle. Please login below, or register for an account{' '}
+						<Link to="/register">here</Link>.
+					</p>
+					<hr />
+					<form onSubmit={this.handleSubmit}>
+						<div className="form-group">
+							<input
+								type="email"
+								placeholder="Email"
+								className={classnames('form-control form-control-lg', {
+									'is-invalid': errors.email
+								})}
+								name="email"
+								onChange={this.handleInputChange}
+								value={this.state.email}
+							/>
+							{errors.email && (
+								<div className="invalid-feedback">{errors.email}</div>
+							)}
+						</div>
+						<div className="form-group">
+							<input
+								type="password"
+								placeholder="Password"
+								className={classnames('form-control form-control-lg', {
+									'is-invalid': errors.password
+								})}
+								name="password"
+								onChange={this.handleInputChange}
+								value={this.state.password}
+							/>
+							{errors.password && (
+								<div className="invalid-feedback">{errors.password}</div>
+							)}
+						</div>
+						<div className="form-group">
+							<button type="submit" className="btn btn-primary">
+								Login
+							</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		);
 	}

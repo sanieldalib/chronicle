@@ -102,15 +102,26 @@ const finishWritingPost = () => {
 	};
 };
 
-export const writePost = post => {
+export const writePost = (post, files) => {
 	return dispatch => {
 		dispatch(startWritePost());
 
+		const formData = new FormData();
+
+		files.map((picture, index) => {
+			formData.append(index, picture);
+		});
+
+		console.log(formData);
+
 		return axios
-			.post('/posts/new', post)
+			.post('/posts/images', formData)
 			.then(res => {
-				console.log(res);
-				dispatch(finishWritingPost());
+				post.images = res.data.images;
+
+				return axios.post('/posts/new', post).then(() => {
+					dispatch(finishWritingPost());
+				});
 			})
 			.catch(err => {
 				dispatch({

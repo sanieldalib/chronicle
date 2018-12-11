@@ -5,6 +5,7 @@ import Sharing from './sharing';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import GallerySwiper from 'react-gallery-swiper';
 
 Modal.setAppElement('#root');
 
@@ -71,13 +72,19 @@ class PostPage extends Component {
 		const { post } = this.state;
 		console.log(post.owner);
 		console.log(this.props.user);
+
+		const images = [];
+		post.images.map((img, i) => {
+			images.push({ original: img, thumbnail: img });
+		});
+
 		const locationInfo =
 			post.location === {} ? (
 				''
 			) : (
 				<div className="location">
 					<h6 className="card-subtitle mb-2 text-muted">
-						<i class="fas fa-map-marker-alt" />
+						<i className="fas fa-map-marker-alt" />
 						{post.location.written}
 					</h6>
 				</div>
@@ -97,6 +104,49 @@ class PostPage extends Component {
 				''
 			);
 
+		const gallery =
+			post.images.length === 0 ? (
+				''
+			) : (
+				<div
+					id="carouselExampleControls"
+					className="carousel slide"
+					data-ride="carousel"
+				>
+					<div className="carousel-inner">
+						{post.images.map((img, index) =>
+							index === 0 ? (
+								<div className="carousel-item active">
+									<img className="d-block w-100" src={img} alt="First slide" />
+								</div>
+							) : (
+								<div className="carousel-item">
+									<img className="d-block w-100" src={img} alt="Second slide" />
+								</div>
+							)
+						)}
+					</div>
+					<a
+						className="carousel-control-prev"
+						href="#carouselExampleControls"
+						role="button"
+						data-slide="prev"
+					>
+						<span className="carousel-control-prev-icon" aria-hidden="true" />
+						<span className="sr-only">Previous</span>
+					</a>
+					<a
+						className="carousel-control-next"
+						href="#carouselExampleControls"
+						role="button"
+						data-slide="next"
+					>
+						<span className="carousel-control-next-icon" aria-hidden="true" />
+						<span className="sr-only">Next</span>
+					</a>
+				</div>
+			);
+
 		const button =
 			post.owner === this.props.user.id ? (
 				<button onClick={this.openModal} className="btn btn-primary share">
@@ -105,6 +155,7 @@ class PostPage extends Component {
 			) : (
 				''
 			);
+
 		return (
 			<div>
 				{this.renderRedirect()}
@@ -121,7 +172,7 @@ class PostPage extends Component {
 					{locationInfo}
 					<h6 className="card-subtitle mb-2 text-muted">
 						<span className="vl">|</span>
-						<i class="fas fa-clock" />
+						<i className="fas fa-clock" />
 						<Moment fromNow ago>
 							{post.date}
 						</Moment>
@@ -129,11 +180,15 @@ class PostPage extends Component {
 					</h6>
 					<h6 className="card-subtitle mb-2 text-muted">
 						<span className="vl">|</span>
-						<i class="fas fa-user" />
+						<i className="fas fa-user" />
 						{post.ownerName}
 					</h6>
 				</div>
 				<hr />
+				{gallery}
+				<React.Fragment>
+					<hr />
+				</React.Fragment>
 				<p className="post-text">{post.text}</p>
 			</div>
 		);

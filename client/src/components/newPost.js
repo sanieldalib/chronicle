@@ -6,7 +6,7 @@ import { Redirect } from 'react-router';
 import { writePost, resetNewPost, getLocation } from '../actions/posts';
 import { connect } from 'react-redux';
 import { geolocated } from 'react-geolocated';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ImageUploader from 'react-images-upload';
 
 class NewPost extends Component {
 	constructor(props) {
@@ -24,7 +24,7 @@ class NewPost extends Component {
 
 	onDrop(picture) {
 		this.setState({
-			pictures: this.state.pictures.push(picture)
+			pictures: this.state.pictures.concat(picture)
 		});
 	}
 
@@ -37,7 +37,8 @@ class NewPost extends Component {
 			location: this.props.location
 		};
 		const { dispatch } = this.props;
-		dispatch(writePost(newPost));
+		const { pictures } = this.state;
+		dispatch(writePost(newPost, pictures));
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -55,14 +56,13 @@ class NewPost extends Component {
 	}
 
 	renderRedirect = () => {
-		const { dispatch, isAuthenticated, success, error } = this.props;
+		const { dispatch, isAuthenticated, success } = this.props;
 
 		if (!isAuthenticated) {
 			return <Redirect to="/login" />;
 		}
 
 		if (success) {
-			console.log('yo');
 			this.props.close();
 			dispatch(resetNewPost());
 			return <Redirect to="/" />;
@@ -94,6 +94,16 @@ class NewPost extends Component {
 							? this.props.location.written
 							: 'Getting your location...'}
 					</div>
+					<hr />
+					<ImageUploader
+						withIcon={true}
+						buttonText="Choose images"
+						onChange={this.onDrop}
+						imgExtension={['.jpg', '.gif', '.png', '.gif']}
+						maxFileSize={5242880}
+						withPreview={true}
+					/>
+					<hr />
 					<TextArea
 						className="input newpost-text"
 						placeholder="What are your thoughts?"
@@ -102,12 +112,15 @@ class NewPost extends Component {
 						name="text"
 						onChange={this.handleInputChange}
 					/>
-					<div className="newpost-bottom">
-						<button type="submit" className="btn btn-primary newpost-btn">
-							Post!
-						</button>{' '}
-					</div>
 				</form>
+				<div className="newpost-bottom">
+					<button
+						onClick={this.handleSubmit}
+						className="btn btn-primary newpost-btn"
+					>
+						Post!
+					</button>
+				</div>
 			</div>
 		);
 	}
@@ -117,7 +130,6 @@ NewPost.propTypes = {
 	dispatch: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool.isRequired,
 	isWritingPost: PropTypes.bool.isRequired,
-	error: PropTypes.bool.isRequired,
 	isGettingLocation: PropTypes.bool.isRequired,
 	locSuccess: PropTypes.bool.isRequired,
 	location: PropTypes.object.isRequired
@@ -128,7 +140,6 @@ function mapStateToProps(state) {
 	const {
 		isWritingPost,
 		success,
-		error,
 		isGettingLocation,
 		locSuccess,
 		location
