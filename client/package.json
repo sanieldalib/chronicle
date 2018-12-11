@@ -8,10 +8,12 @@
 		"classnames": "^2.2.6",
 		"jwt-decode": "^2.2.0",
 		"lodash": "^4.17.11",
+		"npm": "^6.5.0",
 		"popper": "^1.0.1",
 		"react": "^16.6.3",
 		"react-autosize-textarea": "^6.0.0",
 		"react-dom": "^16.6.3",
+		"react-geolocated": "^2.4.0",
 		"react-images-upload": "^1.2.3",
 		"react-loading": "^2.0.3",
 		"react-modal": "^3.7.1",
@@ -32,10 +34,5 @@
 	"eslintConfig": {
 		"extends": "react-app"
 	},
-	"browserslist": [
-		">0.2%",
-		"not dead",
-		"not ie <= 11",
-		"not op_mini all"
-	]
+	"browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }

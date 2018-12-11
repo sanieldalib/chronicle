@@ -3,7 +3,11 @@ import {
 	RECEIVE_USER_POSTS,
 	ERROR_WRITING_POST,
 	START_WRITE_POST,
-	FINISHED_WRITE_POST
+	FINISHED_WRITE_POST,
+	RESET_NEW_POST,
+	GET_LOCATION,
+	GOT_LOCATION,
+	LOCATION_FAILED
 } from '../actions/types';
 import _ from 'lodash';
 
@@ -13,6 +17,10 @@ export default function posts(
 		lastUpdated: Date.now(),
 		isWritingPost: false,
 		success: false,
+		error: false,
+		isGettingLocation: false,
+		locSuccess: false,
+		location: {},
 		items: []
 	},
 	action
@@ -32,7 +40,8 @@ export default function posts(
 		case ERROR_WRITING_POST:
 			return _.assign({}, state, {
 				isWritingPost: false,
-				success: false
+				success: false,
+				error: true
 			});
 		case START_WRITE_POST:
 			return _.assign({}, state, {
@@ -43,6 +52,31 @@ export default function posts(
 			return _.assign({}, state, {
 				isWritingPost: false,
 				success: true
+			});
+		case RESET_NEW_POST:
+			return _.assign({}, state, {
+				isWritingPost: false,
+				success: false
+			});
+		case GET_LOCATION:
+			return _.assign({}, state, {
+				isGettingLocation: true,
+				locSuccess: false
+			});
+		case GOT_LOCATION:
+			return _.assign({}, state, {
+				isGettingLocation: false,
+				locSuccess: true,
+				location: {
+					written: action.location,
+					latitude: action.latitude,
+					longitude: action.longitude
+				}
+			});
+		case LOCATION_FAILED:
+			return _.assign({}, state, {
+				isGettingLocation: false,
+				locSuccess: false
 			});
 		default:
 			return state;

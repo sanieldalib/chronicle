@@ -7,6 +7,8 @@ import Post from './post';
 import NewPost from './newPost';
 import Modal from 'react-modal';
 
+Modal.setAppElement('#root');
+
 class Home extends Component {
 	constructor(props) {
 		super(props);

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import TextArea from 'react-autosize-textarea';
-import ImageUploader from 'react-images-upload';
 import ReactLoading from 'react-loading';
 import { Redirect } from 'react-router';
-import { writePost } from '../actions/posts';
+import { writePost, resetNewPost, getLocation } from '../actions/posts';
 import { connect } from 'react-redux';
+import { geolocated } from 'react-geolocated';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class NewPost extends Component {
 	constructor(props) {
@@ -15,6 +15,11 @@ class NewPost extends Component {
 		this.onDrop = this.onDrop.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
+	}
+
+	componentDidMount() {
+		const { dispatch } = this.props;
+		dispatch(getLocation());
 	}
 
 	onDrop(picture) {
@@ -35,13 +40,10 @@ class NewPost extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		console.log('new props');
-		console.log(nextProps);
 		if (nextProps.isWritingPost) {
 			this.setState({
 				isWritingPost: true
 			});
-			return;
 		}
 	}
 
@@ -52,14 +54,16 @@ class NewPost extends Component {
 	}
 
 	renderRedirect = () => {
-		console.log('redirect calle');
-		if (!this.props.isAuthenticated) {
+		const { dispatch, isAuthenticated, success, error } = this.props;
+
+		if (!isAuthenticated) {
 			return <Redirect to="/login" />;
 		}
 
-		if (this.props.success) {
+		if (success) {
 			console.log('yo');
 			this.props.close();
+			dispatch(resetNewPost());
 			return <Redirect to="/" />;
 		}
 	};
@@ -74,7 +78,7 @@ class NewPost extends Component {
 		return (
 			<div className="newpost">
 				{this.renderRedirect()}
-				{isWritingPost ? overlay : ''}
+				{isWritingPost ? overlay : null}
 				<form onSubmit={this.handleSubmit}>
 					<input
 						className="input newpost-title"
@@ -83,6 +87,12 @@ class NewPost extends Component {
 						name="title"
 						onChange={this.handleInputChange}
 					/>
+					<div className="location">
+						<i class="fas fa-map-marker-alt" />
+						{this.props.locSuccess
+							? this.props.location.written
+							: 'Getting your location...'}
+					</div>
 					<TextArea
 						className="input newpost-text"
 						placeholder="What are your thoughts?"
@@ -91,9 +101,11 @@ class NewPost extends Component {
 						name="text"
 						onChange={this.handleInputChange}
 					/>
-					<button type="submit" className="btn btn-primary">
-						Post!
-					</button>
+					<div className="newpost-bottom">
+						<button type="submit" className="btn btn-primary newpost-btn">
+							Post!
+						</button>{' '}
+					</div>
 				</form>
 			</div>
 		);
@@ -103,16 +115,30 @@ class NewPost extends Component {
 NewPost.propTypes = {
 	dispatch: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool.isRequired,
-	isWritingPost: PropTypes.bool.isRequired
+	isWritingPost: PropTypes.bool.isRequired,
+	error: PropTypes.bool.isRequired,
+	isGettingLocation: PropTypes.bool.isRequired,
+	locSuccess: PropTypes.bool.isRequired,
+	location: PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
 	const { isAuthenticated } = state.auth;
-	const { isWritingPost, success } = state.posts;
+	const {
+		isWritingPost,
+		success,
+		error,
+		isGettingLocation,
+		locSuccess,
+		location
+	} = state.posts;
 	return {
 		isAuthenticated,
 		isWritingPost,
-		success
+		success,
+		isGettingLocation,
+		locSuccess,
+		location
 	};
 }
 

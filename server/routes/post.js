@@ -20,10 +20,15 @@ router.post(
 			images: images
 		});
 
-		newPost.save().then(post => {
-			res.send(post);
-			console.log('got it bb');
-		});
+		newPost
+			.save()
+			.then(post => {
+				res.send(post);
+				console.log('got it bb');
+			})
+			.catch(err => {
+				res.status(400);
+			});
 	}
 );
 

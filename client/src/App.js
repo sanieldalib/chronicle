@@ -10,10 +10,14 @@ import Navbar from './components/navbar';
 import Register from './components/register';
 import Login from './components/login';
 import Home from './components/home';
-
+// import { library } from '@fortawesome/fontawesome-svg-core';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { mapmarker } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'bootstrap/dist/js/bootstrap.min.js';
 import './style.css';
+
+// library.add(mapmarker);
 
 if (localStorage.jwtToken) {
 	setToken(localStorage.jwtToken);

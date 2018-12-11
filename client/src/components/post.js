@@ -23,12 +23,6 @@ export default class Post extends Component {
 						{' ago'}
 					</h6>
 					<p className="card-text">{displayPost}</p>
-					<a href="/" className="card-link">
-						Card link
-					</a>
-					<a href="/" className="card-link">
-						Another link
-					</a>
 				</div>
 			</div>
 		);

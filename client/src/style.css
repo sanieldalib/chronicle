@@ -65,7 +65,7 @@
 	font-family: 'Lato';
 	box-sizing: border-box;
 	position: relative;
-	width: 95%;
+	width: 80%;
 }
 
 .newpost-text {
@@ -78,6 +78,24 @@
 	font-weight: 600;
 }
 
+.newpost-btn {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.newpost-bottom {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.fas {
+	padding-right: 5px;
+}
+
+.location {
+	color: #007bff;
+}
+
 .input:focus {
 	outline: none;
 }
@@ -87,7 +105,7 @@ input::-webkit-input-placeholder {
 }
 
 input:focus::-webkit-input-placeholder {
-	color: dodgerblue;
+	color: black;
 }
 
 .images {
@@ -118,6 +136,9 @@ input:focus::-webkit-input-placeholder {
 	color: white;
 	transform: translate(-50%, -50%);
 	-ms-transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 480px) {
 }
 
 /* .input:focus + .underline {
