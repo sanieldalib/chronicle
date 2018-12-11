@@ -22,6 +22,7 @@ router.post(
 
 		newPost.save().then(post => {
 			res.send(post);
+			console.log('got it bb');
 		});
 	}
 );

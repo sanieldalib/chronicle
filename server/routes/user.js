@@ -71,7 +71,7 @@ router.post('/login', (req, res) => {
 					payload,
 					process.env.SECRET,
 					{
-						expiresIn: 3600
+						expiresIn: 86400
 					},
 					(err, token) => {
 						if (err) console.error('There is some error in token', err);

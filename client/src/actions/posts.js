@@ -1,53 +1,33 @@
 import axios from 'axios';
-import { REQUEST_USER_POSTS, RECEIVE_USER_POSTS } from './types';
+import {
+	REQUEST_USER_POSTS,
+	RECEIVE_USER_POSTS,
+	ERROR_WRITING_POST,
+	START_WRITE_POST,
+	FINISHED_WRITE_POST
+} from './types';
 
-// export const getPosts = () => dispatch => {
-// 	axios
-// 		.get('/posts')
-// 		.then(res => {
-// 			const posts = res.data;
-// 			return {
-// 				type: GET_USER_POSTS,
-// 				posts: posts
-// 			};
-// 		})
-// 		.catch(err => {
-// 			return {
-// 				type: GET_ERRORS
-// 			};
-// 		});
-// };
-//
-// export const test = () => {
-//   console.log('test');
-// }
-
-function requestPosts() {
+const requestPosts = () => {
 	return {
 		type: REQUEST_USER_POSTS
 	};
-}
+};
 
-function receivePosts(posts) {
+const receivePosts = posts => {
 	console.log(posts);
 	return {
 		type: RECEIVE_USER_POSTS,
 		items: posts,
 		receivedAt: Date.now()
 	};
-}
+};
 
-function fetchPosts() {
+const fetchPosts = () => {
 	return dispatch => {
 		dispatch(requestPosts());
-		const token = localStorage.getItem('jwtToken') || null;
-		console.log(token);
-		const config = {
-			headers: { Authorization: token }
-		};
 
 		return axios
-			.get('/posts', config)
+			.get('/posts')
 			.then(res => {
 				const { posts } = res.data;
 				console.log(posts);
@@ -57,9 +37,9 @@ function fetchPosts() {
 				console.log('error');
 			});
 	};
-}
+};
 
-function shouldFetchPosts(state) {
+const shouldFetchPosts = state => {
 	if (!state.posts) {
 		console.log('yo');
 		return true;
@@ -68,13 +48,44 @@ function shouldFetchPosts(state) {
 	} else {
 		return true;
 	}
-}
+};
 
-export function fetchPostsIfNeeded() {
+const startWritePost = () => {
+	return {
+		type: START_WRITE_POST
+	};
+};
+
+const finishWritingPost = () => {
+	return {
+		type: FINISHED_WRITE_POST
+	};
+};
+
+export const writePost = post => {
+	return dispatch => {
+		dispatch(startWritePost());
+
+		return axios
+			.post('/posts/new', post)
+			.then(res => {
+				console.log(res);
+				dispatch(finishWritingPost());
+			})
+			.catch(err =>
+				dispatch({
+					type: ERROR_WRITING_POST,
+					payload: err
+				})
+			);
+	};
+};
+
+export const fetchPostsIfNeeded = () => {
 	return (dispatch, getState) => {
 		console.log(getState());
 		if (shouldFetchPosts(getState())) {
 			return dispatch(fetchPosts());
 		}
 	};
-}
+};
