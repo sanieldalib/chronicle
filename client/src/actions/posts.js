@@ -94,22 +94,26 @@ const startSharing = () => {
 	};
 };
 
-const finishSharing = () => {
+const finishSharing = shared => {
 	return {
-		type: SHARE_FINISHED
+		type: SHARE_FINISHED,
+		shared: shared
 	};
 };
 
 export const sharePost = (email, id) => {
+	console.log('u here');
 	return dispatch => {
 		dispatch(startSharing());
 
 		return axios
 			.post('/posts/share', { email: email, id: id })
 			.then(res => {
-				dispatch(finishSharing());
+				console.log(res.data.shared);
+				dispatch(finishSharing(res.data.shared));
 			})
 			.catch(err => {
+				console.log('error');
 				dispatch({
 					type: SHARE_FAILED
 				});

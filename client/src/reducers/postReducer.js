@@ -26,6 +26,7 @@ export default function posts(
 		location: {},
 		isSharing: false,
 		shareSuccess: false,
+		shared: [],
 		items: []
 	},
 	action
@@ -94,9 +95,11 @@ export default function posts(
 				shareSuccess: false
 			});
 		case SHARE_FINISHED:
+			console.log(action.shared);
 			return _.assign({}, state, {
 				isSharing: false,
-				shareSuccess: true
+				shareSuccess: true,
+				shared: action.shared
 			});
 		default:
 			return state;

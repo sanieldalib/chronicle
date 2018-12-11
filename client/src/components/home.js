@@ -60,7 +60,7 @@ class Home extends Component {
 		console.log(this.props);
 		this.props.history.push({
 			pathname: `/posts/${post._id}`,
-			state: { post: post, dispatch: this.props.dispatch }
+			state: { post: post }
 		});
 	}
 

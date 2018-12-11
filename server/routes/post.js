@@ -56,6 +56,10 @@ router.post(
 				return;
 			}
 
+			if (post.shared.includes(email)) {
+				res.status(400).json('Already shared with this person');
+			}
+
 			post.shared.push(email);
 
 			post

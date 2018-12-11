@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { sharePost } from '../actions/posts';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class Sharing extends Component {
+class Sharing extends Component {
 	constructor(props) {
 		super(props);
 		console.log(this.props);
@@ -19,8 +21,10 @@ export default class Sharing extends Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
+		const { dispatch } = this.props;
 		const { _id } = this.props.post;
 		const email = this.state.email;
+		dispatch(sharePost(email, _id));
 	}
 
 	render() {
@@ -37,7 +41,7 @@ export default class Sharing extends Component {
 					/>
 					<div className="sharepost-shared">
 						{this.state.shared.map((email, index) => (
-							<div className="sharepost-shared-item" key={index}>
+							<div className="sharepost-shared-item" key={email}>
 								{email}
 							</div>
 						))}
@@ -51,4 +55,39 @@ export default class Sharing extends Component {
 			</div>
 		);
 	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps);
+		if (nextProps.shareSuccess) {
+			console.log('success');
+			console.log(nextProps.shared);
+			this.setState({
+				shared: nextProps.shared
+			});
+			this.props.close();
+		}
+	}
 }
+
+Sharing.propTypes = {
+	dispatch: PropTypes.func.isRequired,
+	isSharing: PropTypes.bool.isRequired,
+	shareSuccess: PropTypes.bool.isRequired
+};
+
+function mapStateToProps(state) {
+	const { isSharing, shareSuccess, shared } = state.posts || {
+		isSharing: false,
+		shareSuccess: false,
+		shared: []
+	};
+	const { isAuthenticated } = state.auth;
+	return {
+		isSharing,
+		shareSuccess,
+		shared,
+		isAuthenticated
+	};
+}
+
+export default connect(mapStateToProps)(Sharing);
